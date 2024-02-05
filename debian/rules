@@ -2,3 +2,15 @@
 
 %:
 	dh $@
+
+override_dh_auto_build:
+	rollup -c config/rollup.config.es.js
+	rollup -c config/rollup.config.cjs.js
+
+override_dh_auto_clean:
+	rm -fr lib
+
+override_dh_auto_test:
+ifeq (,$(filter nocheck, $(DEB_BUILD_OPTIONS)))
+	# node test/turndown-test.js FIXME we lack turndown-attendant
+endif

@@ -1,5 +1,29 @@
-template-repository (1.0-1) unstable; urgency=medium
+node-turndown (7.1.1-3) unstable; urgency=medium
 
-  * Initial release
+  * Team upload
+  * Update standards version to 4.6.1, no changes needed.
+  * Add fix for rollup 3 (Closes: #1022676)
 
- -- Tsic404 <liuheng@deepin.org>  Sat, 28 Jan 2023 13:46:49 +0800
+ -- Yadd <yadd@debian.org>  Fri, 28 Oct 2022 11:44:44 +0200
+
+node-turndown (7.1.1-2) unstable; urgency=medium
+
+  * Team upload
+  * Set upstream metadata fields: Security-Contact.
+  * Use dh-sequence-nodejs auto install
+
+ -- Yadd <yadd@debian.org>  Tue, 08 Feb 2022 16:57:39 +0100
+
+node-turndown (7.1.1-1) unstable; urgency=medium
+
+  * Fix d/watch.
+  * Bump standards-version to 4.6.0.
+  * New upstream release. (Closes: #975067)
+
+ -- Julien Puydt <jpuydt@debian.org>  Tue, 07 Dec 2021 15:18:26 +0100
+
+node-turndown (7.0.0-1) unstable; urgency=medium
+
+  * Initial release (Closes: #975067).
+
+ -- Julien Puydt <jpuydt@debian.org>  Wed, 18 Nov 2020 18:27:51 +0100
