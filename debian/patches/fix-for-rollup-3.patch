@@ -1,0 +1,98 @@
+Description: fix for rollup 3
+Author: Yadd <yadd@debian.org>
+Bug-Debian: https://bugs.debian.org/1022676
+Forwarded: not-needed
+Last-Update: 2022-10-28
+
+--- a/config/rollup.config.browser.cjs.js
++++ b/config/rollup.config.browser.cjs.js
+@@ -1,6 +1,6 @@
+-import config from './rollup.config'
++const config = require('./rollup.config')
+ 
+-export default config({
++module.exports = config({
+   output: {
+     file: 'lib/turndown.browser.cjs.js',
+     format: 'cjs',
+--- a/config/rollup.config.browser.es.js
++++ b/config/rollup.config.browser.es.js
+@@ -1,6 +1,6 @@
+-import config from './rollup.config'
++const config = require('./rollup.config')
+ 
+-export default config({
++module.exports = config({
+   output: {
+     file: 'lib/turndown.browser.es.js',
+     format: 'es'
+--- a/config/rollup.config.browser.umd.js
++++ b/config/rollup.config.browser.umd.js
+@@ -1,6 +1,6 @@
+-import config from './rollup.config'
++const config = require('./rollup.config')
+ 
+-export default config({
++module.exports = config({
+   output: {
+     file: 'lib/turndown.browser.umd.js',
+     format: 'umd',
+--- a/config/rollup.config.cjs.js
++++ b/config/rollup.config.cjs.js
+@@ -1,6 +1,6 @@
+-import config from './rollup.config'
++const config = require('./rollup.config')
+ 
+-export default config({
++module.exports = config({
+   output: {
+     file: 'lib/turndown.cjs.js',
+     format: 'cjs',
+--- a/config/rollup.config.es.js
++++ b/config/rollup.config.es.js
+@@ -1,6 +1,6 @@
+-import config from './rollup.config'
++const config = require('./rollup.config')
+ 
+-export default config({
++module.exports = config({
+   output: {
+     file: 'lib/turndown.es.js',
+     format: 'es'
+--- a/config/rollup.config.iife.js
++++ b/config/rollup.config.iife.js
+@@ -1,6 +1,6 @@
+-import config from './rollup.config'
++const config = require('./rollup.config')
+ 
+-export default config({
++module.exports = config({
+   output: {
+     file: 'dist/turndown.js',
+     format: 'iife',
+--- a/config/rollup.config.js
++++ b/config/rollup.config.js
+@@ -1,8 +1,8 @@
+-import commonjs from '@rollup/plugin-commonjs'
+-import replace from '@rollup/plugin-replace'
+-import resolve from '@rollup/plugin-node-resolve'
++const commonjs = require('@rollup/plugin-commonjs')
++const replace = require('@rollup/plugin-replace')
++const resolve = require('@rollup/plugin-node-resolve').nodeResolve
+ 
+-export default function (config) {
++module.exports = function (config) {
+   return {
+     input: 'src/turndown.js',
+     output: config.output,
+--- a/config/rollup.config.umd.js
++++ b/config/rollup.config.umd.js
+@@ -1,6 +1,6 @@
+-import config from './rollup.config'
++const config = require('./rollup.config')
+ 
+-export default config({
++module.exports = config({
+   output: {
+     file: 'lib/turndown.umd.js',
+     format: 'umd',

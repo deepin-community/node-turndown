@@ -1,0 +1,14 @@
+Description: ship TypeScript definitions
+Author: Julien Puydt
+Forwarded: https://github.com/domchristie/turndown/issues/359
+
+--- a/package.json
++++ b/package.json
+@@ -6,6 +6,7 @@
+   "main": "lib/turndown.cjs.js",
+   "module": "lib/turndown.es.js",
+   "jsnext:main": "lib/turndown.es.js",
++  "types": "lib/index.d.ts",
+   "browser": {
+     "domino": false,
+     "./lib/turndown.cjs.js": "./lib/turndown.browser.cjs.js",
