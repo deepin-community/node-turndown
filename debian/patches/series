@@ -1,2 +1,3 @@
 ship_typescript_definitions.patch
 fix-for-rollup-3.patch
+cve_2025_9670.patch
