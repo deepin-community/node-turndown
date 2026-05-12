@@ -1,2 +1,13 @@
-version=4
-https://github.com/domchristie/turndown/tags .*/v?([\d\.]+).tar.gz
+Version: 5
+Version-Schema: group
+
+Template: Github
+Owner: domchristie
+Project: turndown
+
+Component: mixmark-io-domino
+Ctype: nodejs
+Source: https://github.com/mixmark-io/domino.git
+Mode: git
+Matching-Pattern: HEAD
+Git-Pretty: 2.2.0~git%cd

@@ -10,5 +10,5 @@ Forwarded: https://github.com/domchristie/turndown/issues/359
    "jsnext:main": "lib/turndown.es.js",
 +  "types": "lib/index.d.ts",
    "browser": {
-     "domino": false,
+     "@mixmark-io/domino": false,
      "./lib/turndown.cjs.js": "./lib/turndown.browser.cjs.js",

@@ -217,6 +217,16 @@ title")</pre>
 link")</pre>
 </div>
 
+<div class="case" data-name="a with quotes in title">
+  <div class="input"><a href="http://example.com" title="&quot;hello&quot;">An anchor</a></div>
+  <pre class="expected">[An anchor](http://example.com "\"hello\"")</pre>
+</div>
+
+<div class="case" data-name="a with parenthesis in query">
+  <div class="input"><a href="http://example.com?(query)">An anchor</a></div>
+  <pre class="expected">[An anchor](http://example.com?\(query\))</pre>
+</div>
+
 <div class="case" data-name="a without a src">
   <div class="input"><a id="about-anchor">Anchor without a title</a></div>
   <pre class="expected">Anchor without a title</pre>
@@ -374,6 +384,20 @@ def a_fenced_code block; end
   <pre class="expected">42.  Ordered list item 42
 43.  Ordered list item 43
 44.  Ordered list item 44</pre>
+</div>
+
+<div class="case" data-name="ol with content">
+  <div class="input">
+    <ol start="42">
+      <li>
+        <p>Ordered list item 42</p>
+        <p>Ordered list's additional content</p>
+      </li>
+    </ol>
+  </div>
+  <pre class="expected">42.  Ordered list item 42
+     
+     Ordered list's additional content</pre>
 </div>
 
 <div class="case" data-name="list spacing">

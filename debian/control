@@ -6,16 +6,17 @@ Uploaders: Julien Puydt <jpuydt@debian.org>
 Build-Depends: debhelper-compat (= 13)
  , dh-sequence-nodejs
  , node-domino
+ , node-jsdom <!nocheck>
  , node-rollup-plugin-commonjs
  , node-rollup-plugin-node-resolve
  , node-rollup-plugin-replace
+ , node-tape <!nocheck>
  , rollup
-Standards-Version: 4.6.1
+Standards-Version: 4.7.2
 Vcs-Browser: https://salsa.debian.org/js-team/node-turndown
 Vcs-Git: https://salsa.debian.org/js-team/node-turndown.git
 Homepage: https://github.com/vercel/turndown
 Testsuite: autopkgtest-pkg-nodejs
-Rules-Requires-Root: no
 
 Package: node-turndown
 Architecture: all

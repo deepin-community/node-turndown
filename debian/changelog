@@ -1,8 +1,25 @@
-node-turndown (7.1.1-3deepin1) unstable; urgency=medium
+node-turndown (7.2.2+~2.2.0~git20240406-2) unstable; urgency=medium
 
-  * Fix CVE-2025-9670: ReDoS vulnerability via regexp bottleneck
+  * Team upload
+  * Replace __proto__ calls (fixes also autopkgtest)
 
- -- deepin-ci-robot <packages@deepin.org>  Thu, 30 Apr 2026 10:13:11 +0800
+ -- Yadd <yadd@debian.org>  Sun, 26 Oct 2025 10:20:54 +0100
+
+node-turndown (7.2.2+~2.2.0~git20240406-1) unstable; urgency=medium
+
+  * Team upload
+  * Declare compliance with policy 4.7.2
+  * Drop "Rules-Requires-Root: no"
+  * debian/watch version 5
+  * Embed @mixmark-io/domino
+  * New upstream release (Closes: #1118283, CVE-2025-9670)
+  * Unfuzz patches
+  * Test with tape
+  * Add test-dependency to node-jsdom
+  * Update lintian overrides
+  * Update copyright
+
+ -- Yadd <yadd@debian.org>  Sat, 25 Oct 2025 21:40:49 +0200
 
 node-turndown (7.1.1-3) unstable; urgency=medium
 

@@ -1,0 +1,15 @@
+Description: drop rewire test
+Author: Yadd <yadd@debian.org>
+Forwarded: not-needed
+Last-Update: 2025-10-25
+
+--- a/test/internals-test.js
++++ b/test/internals-test.js
+@@ -1,6 +1,5 @@
+ var test = require('tape').test
+-var rewire = require('rewire')
+-var turndownModule = rewire('../lib/turndown.cjs')
++var turndownModule = require('../lib/turndown.cjs')
+ 
+ test('edge whitespace detection',function (t) {
+   function ews (leadingAscii, leadingNonAscii, trailingNonAscii, trailingAscii) {

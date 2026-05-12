@@ -1,7 +1,5 @@
 # Turndown
 
-[![Build Status](https://travis-ci.org/domchristie/turndown.svg?branch=master)](https://travis-ci.org/domchristie/turndown)
-
 Convert HTML into Markdown with JavaScript.
 
 ## Project Updates
@@ -161,6 +159,8 @@ The filter property determines whether or not an element should be replaced with
 
  * `filter: 'p'` will select `<p>` elements
  * `filter: ['em', 'i']` will select `<em>` or `<i>` elements
+
+The tag names in the `filter` property are expected in lowercase, regardless of their form in the document.
 
 Alternatively, the filter can be a function that returns a boolean depending on whether a given node should be replaced. The function is passed a DOM node as well as the `TurndownService` options. For example, the following rule selects `<a>` elements (with an `href`) when the `linkStyle` option is `inlined`:
 
