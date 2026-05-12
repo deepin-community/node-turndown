@@ -1,4 +1,4 @@
-import { repeat } from './utilities'
+import { repeat, trimNewlines } from './utilities'
 
 var rules = {}
 
@@ -39,8 +39,7 @@ rules.blockquote = {
   filter: 'blockquote',
 
   replacement: function (content) {
-    content = content.replace(/^\n+|\n+$/g, '')
-    content = content.replace(/^/gm, '> ')
+    content = trimNewlines(content).replace(/^/gm, '> ')
     return '\n\n' + content + '\n\n'
   }
 }
@@ -62,10 +61,6 @@ rules.listItem = {
   filter: 'li',
 
   replacement: function (content, node, options) {
-    content = content
-      .replace(/^\n+/, '') // remove leading newlines
-      .replace(/\n+$/, '\n') // replace trailing newlines with just a single one
-      .replace(/\n/gm, '\n    ') // indent
     var prefix = options.bulletListMarker + '   '
     var parent = node.parentNode
     if (parent.nodeName === 'OL') {
@@ -73,8 +68,11 @@ rules.listItem = {
       var index = Array.prototype.indexOf.call(parent.children, node)
       prefix = (start ? Number(start) + index : index + 1) + '.  '
     }
+    var isParagraph = /\n$/.test(content)
+    content = trimNewlines(content) + (isParagraph ? '\n' : '')
+    content = content.replace(/\n/gm, '\n' + ' '.repeat(prefix.length)) // indent
     return (
-      prefix + content + (node.nextSibling && !/\n$/.test(content) ? '\n' : '')
+      prefix + content + (node.nextSibling ? '\n' : '')
     )
   }
 }
@@ -153,8 +151,9 @@ rules.inlineLink = {
 
   replacement: function (content, node) {
     var href = node.getAttribute('href')
+    if (href) href = href.replace(/([()])/g, '\\$1')
     var title = cleanAttribute(node.getAttribute('title'))
-    if (title) title = ' "' + title + '"'
+    if (title) title = ' "' + title.replace(/"/g, '\\"') + '"'
     return '[' + content + '](' + href + title + ')'
   }
 }

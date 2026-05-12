@@ -1,0 +1,201 @@
+Description: drop the use of __proto__
+ Removes all direct uses of __proto__ in the codebase to avoid accessing
+ Object.prototype.__proto__, which triggers security warnings in modern
+ JavaScript environments.
+ .
+ 1. DOMException.js: Replaced the deprecated __proto__ assignment with the
+    standard Object.setPrototypeOf() method for establishing prototype
+    inheritance:
+    * Before: DOMException.prototype.proto = Error.prototype;
+    * After: Object.setPrototypeOf(DOMException.prototype, Error.prototype);
+ .
+ 2. HTMLParser.js: Removed 24 redundant proto: null property declarations in
+    object literals. These were unnecessary since the objects are already
+    created with Object.create(null), which already sets the prototype to null.
+ .
+ These changes maintain the exact same functionality while using modern,
+ standard JavaScript APIs that don't trigger security concerns.
+Author: Yadd <yadd@debian.org>
+Forwarded: https://github.com/mixmark-io/domino/pull/5
+Last-Update: 2025-10-26
+
+--- a/mixmark-io-domino/lib/DOMException.js
++++ b/mixmark-io-domino/lib/DOMException.js
+@@ -124,7 +124,7 @@
+   this.message = messages[code];
+   this.name = names[code];
+ }
+-DOMException.prototype.__proto__ = Error.prototype;
++Object.setPrototypeOf(DOMException.prototype, Error.prototype);
+ 
+ // Initialize the constants on DOMException and DOMException.prototype
+ for(var c in constants) {
+--- a/mixmark-io-domino/lib/HTMLParser.js
++++ b/mixmark-io-domino/lib/HTMLParser.js
+@@ -136,7 +136,6 @@
+ // whether an element is a member of a set
+ var specialSet = Object.create(null);
+ specialSet[NAMESPACE.HTML] = {
+-  __proto__: null,
+   "address":true, "applet":true, "area":true, "article":true,
+   "aside":true, "base":true, "basefont":true, "bgsound":true,
+   "blockquote":true, "body":true, "br":true, "button":true,
+@@ -162,11 +161,9 @@
+   "ul":true, "wbr":true, "xmp":true
+ };
+ specialSet[NAMESPACE.SVG] = {
+-  __proto__: null,
+   "foreignObject": true, "desc": true, "title": true
+ };
+ specialSet[NAMESPACE.MATHML] = {
+-  __proto__: null,
+   "mi":true, "mo":true, "mn":true, "ms":true,
+   "mtext":true, "annotation-xml":true
+ };
+@@ -174,32 +171,27 @@
+ // The set of address, div, and p HTML tags
+ var addressdivpSet = Object.create(null);
+ addressdivpSet[NAMESPACE.HTML] = {
+-  __proto__: null,
+   "address":true, "div":true, "p":true
+ };
+ 
+ var dddtSet = Object.create(null);
+ dddtSet[NAMESPACE.HTML] = {
+-  __proto__: null,
+   "dd":true, "dt":true
+ };
+ 
+ var tablesectionrowSet = Object.create(null);
+ tablesectionrowSet[NAMESPACE.HTML] = {
+-  __proto__: null,
+   "table":true, "thead":true, "tbody":true, "tfoot":true, "tr":true
+ };
+ 
+ var impliedEndTagsSet = Object.create(null);
+ impliedEndTagsSet[NAMESPACE.HTML] = {
+-  __proto__: null,
+   "dd": true, "dt": true, "li": true, "menuitem": true, "optgroup": true,
+   "option": true, "p": true, "rb": true, "rp": true, "rt": true, "rtc": true
+ };
+ 
+ var thoroughImpliedEndTagsSet = Object.create(null);
+ thoroughImpliedEndTagsSet[NAMESPACE.HTML] = {
+-  __proto__: null,
+   "caption": true, "colgroup": true, "dd": true, "dt": true, "li": true,
+   "optgroup": true, "option": true, "p": true, "rb": true, "rp": true,
+   "rt": true, "rtc": true, "tbody": true, "td": true, "tfoot": true,
+@@ -208,26 +200,22 @@
+ 
+ var tableContextSet = Object.create(null);
+ tableContextSet[NAMESPACE.HTML] = {
+-  __proto__: null,
+   "table": true, "template": true, "html": true
+ };
+ 
+ var tableBodyContextSet = Object.create(null);
+ tableBodyContextSet[NAMESPACE.HTML] = {
+-  __proto__: null,
+   "tbody": true, "tfoot": true, "thead": true, "template": true, "html": true
+ };
+ 
+ var tableRowContextSet = Object.create(null);
+ tableRowContextSet[NAMESPACE.HTML] = {
+-  __proto__: null,
+   "tr": true, "template": true, "html": true
+ };
+ 
+ // See http://www.w3.org/TR/html5/forms.html#form-associated-element
+ var formassociatedSet = Object.create(null);
+ formassociatedSet[NAMESPACE.HTML] = {
+-  __proto__: null,
+   "button": true, "fieldset": true, "input": true, "keygen": true,
+   "object": true, "output": true, "select": true, "textarea": true,
+   "img": true
+@@ -235,18 +223,15 @@
+ 
+ var inScopeSet = Object.create(null);
+ inScopeSet[NAMESPACE.HTML]= {
+-  __proto__: null,
+   "applet":true, "caption":true, "html":true, "table":true,
+   "td":true, "th":true, "marquee":true, "object":true,
+   "template":true
+ };
+ inScopeSet[NAMESPACE.MATHML] = {
+-  __proto__: null,
+   "mi":true, "mo":true, "mn":true, "ms":true,
+   "mtext":true, "annotation-xml":true
+ };
+ inScopeSet[NAMESPACE.SVG] = {
+-  __proto__: null,
+   "foreignObject":true, "desc":true, "title":true
+ };
+ 
+@@ -263,20 +248,17 @@
+ 
+ var inTableScopeSet = Object.create(null);
+ inTableScopeSet[NAMESPACE.HTML] = {
+-  __proto__: null,
+   "html":true, "table":true, "template":true
+ };
+ 
+ // The set of elements for select scope is the everything *except* these
+ var invertedSelectScopeSet = Object.create(null);
+ invertedSelectScopeSet[NAMESPACE.HTML] = {
+-  __proto__: null,
+   "optgroup":true, "option":true
+ };
+ 
+ var mathmlTextIntegrationPointSet = Object.create(null);
+ mathmlTextIntegrationPointSet[NAMESPACE.MATHML] = {
+-  __proto__: null,
+   mi: true,
+   mo: true,
+   mn: true,
+@@ -286,14 +268,12 @@
+ 
+ var htmlIntegrationPointSet = Object.create(null);
+ htmlIntegrationPointSet[NAMESPACE.SVG] = {
+-  __proto__: null,
+   foreignObject: true,
+   desc: true,
+   title: true
+ };
+ 
+ var foreignAttributes = {
+-  __proto__: null,
+   "xlink:actuate": NAMESPACE.XLINK, "xlink:arcrole": NAMESPACE.XLINK,
+   "xlink:href":   NAMESPACE.XLINK,  "xlink:role":    NAMESPACE.XLINK,
+   "xlink:show":   NAMESPACE.XLINK,  "xlink:title":   NAMESPACE.XLINK,
+@@ -305,7 +285,6 @@
+ 
+ // Lowercase to mixed case mapping for SVG attributes and tagnames
+ var svgAttrAdjustments = {
+-  __proto__: null,
+   attributename: "attributeName", attributetype: "attributeType",
+   basefrequency: "baseFrequency", baseprofile: "baseProfile",
+   calcmode: "calcMode", clippathunits: "clipPathUnits",
+@@ -341,7 +320,6 @@
+ };
+ 
+ var svgTagNameAdjustments = {
+-  __proto__: null,
+   altglyph: "altGlyph", altglyphdef: "altGlyphDef",
+   altglyphitem: "altGlyphItem", animatecolor: "animateColor",
+   animatemotion: "animateMotion", animatetransform: "animateTransform",
+@@ -369,7 +347,6 @@
+ // These next 3 objects are direct translations of tables
+ // in the HTML spec into JavaScript object format
+ var numericCharRefReplacements = {
+-  __proto__: null,
+   0x00:0xFFFD, 0x80:0x20AC, 0x82:0x201A, 0x83:0x0192, 0x84:0x201E,
+   0x85:0x2026, 0x86:0x2020, 0x87:0x2021, 0x88:0x02C6, 0x89:0x2030,
+   0x8A:0x0160, 0x8B:0x2039, 0x8C:0x0152, 0x8E:0x017D, 0x91:0x2018,
+@@ -382,7 +359,6 @@
+  * This table is generated with test/tools/update-entities.js
+  */
+ var namedCharRefs = {
+-  __proto__: null,
+   "AElig":0xc6, "AElig;":0xc6,
+   "AMP":0x26, "AMP;":0x26,
+   "Aacute":0xc1, "Aacute;":0xc1,
